@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Radhanshi</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<header>
+
+<img src="logo.png" alt="Logo" class="logo">
+
+<h1>Radhanshi</h1>
+
+<p class="tagline">Not Just Love, But A Soul.</p>
+
+</header>
+
+
+<section class="intro">
+
+<p>
+Welcome to the enchanting tale of Radhanshi, where every word whispers a secret of the heart.
+</p>
+
+<img src="radha.png" alt="Radhanshi" class="intro-image">
+
+</section>
+
+
+<section class="book">
+
+<div class="text-box">
+<h2>The Story</h2>
+
+<div class="book-content">
+<p>Radhanshi</p>
+<p>Not just love, a soul.</p>
+<p>This is not a love story, this is a feeling from the deepest part of my heart.
+It is every feeling I never knew how to say.
+
+For the girl I call "Radhanshi"
+because she is a part of something divine.
+</p>
+</div>
+</div>
+
+</section>
+
+
+<section class="ending">
+
+<h2>For Her</h2>
+
+<p>
+Some people become memories.  
+But some become a feeling that quietly stays in the heart forever.
+</p>
+
+</section>
+
+
+<footer>
+
+<p>Made with LOVE❤️ </p>
+
+</footer>
+
+<!-- book cover trigger -->
+
+
+<section class="book-cover-section">
+<img id="coverImg" src="./page1.jpg" class="book-cover">
+  <p class="cover-caption">Click the cover to open the book</p>
+</section>
+
+<!-- book viewer modal -->
+<section id="bookViewer" class="book-viewer" style="display: none;">
+  <div class="viewer-header">
+    <button id="closeViewer" class="btn-close">×</button>
+    <span id="pageLabel">Page1 / 172</span>
+  </div>
+  <div class="viewer-content">
+    <img id="bookPage" src="page1.jpg" alt="Page" />
+  </div>
+  <div class="viewer-controls">
+  <button id="prevPage" class="nav-btn">‹ Prev</button>
+
+  <input type="number" id="pageInput" placeholder="Page #" min="1">
+
+  <button id="goPage" class="nav-btn">Go</button>
+
+  <button id="nextPage" class="nav-btn">Next ›</button>
+</div>
+</section>
+
+<script>
+  // book viewer logic
+  const coverImg = document.getElementById('coverImg');
+  const viewer = document.getElementById('bookViewer');
+  const bookPage = document.getElementById('bookPage');
+  const pageLabel = document.getElementById('pageLabel');
+  const prevBtn = document.getElementById('prevPage');
+  const nextBtn = document.getElementById('nextPage');
+  const closeBtn = document.getElementById('closeViewer');
+  const pageInput = document.getElementById('pageInput');
+const goPage = document.getElementById('goPage');
+
+  const TOTAL_PAGES = 172; // update if different
+  let currentPage = 1;
+
+  function updateViewer() {
+   bookPage.src = `page${currentPage}.jpg`;
+    pageLabel.textContent = `Page ${currentPage} / ${TOTAL_PAGES}`;
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === TOTAL_PAGES;
+  }
+
+  coverImg.addEventListener('click', () => {
+    viewer.style.display = 'flex';
+    currentPage = 1;
+    updateViewer();
+  });
+  closeBtn.addEventListener('click', () => {
+    viewer.style.display = 'none';
+  });
+
+  prevBtn.addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage--;
+      updateViewer();
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (currentPage < TOTAL_PAGES) {
+      currentPage++;
+      updateViewer();
+    }
+  });
+  goPage.addEventListener('click', () => {
+
+  let page = parseInt(pageInput.value);
+
+  if (page >= 1 && page <= TOTAL_PAGES) {
+    currentPage = page;
+    updateViewer();
+  }
+
+});
+pageInput.addEventListener("keypress", function(e){
+
+  if(e.key === "Enter"){
+
+    let page = parseInt(pageInput.value);
+
+    if(page >= 1 && page <= TOTAL_PAGES){
+      currentPage = page;
+      updateViewer();
+    }
+
+  }
+
+});
+</script>
+
+</body>
+</html>
