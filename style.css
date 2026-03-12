@@ -338,3 +338,199 @@ footer p {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.7; }
 }
+/* PDF BOOK VIEWER */
+
+.book-pdf{
+max-width:1000px;
+margin:50px auto;
+padding:20px;
+background:rgba(255,255,255,0.1);
+border-radius:15px;
+box-shadow:0 4px 12px rgba(0,0,0,0.2);
+animation:fadeInUp 1s ease-out;
+}
+
+.pdf-container{
+width:100%;
+height:80vh;
+overflow:hidden;
+border-radius:10px;
+}
+
+.pdf-container iframe{
+width:100%;
+height:100%;
+border:none;
+border-radius:10px;
+}
+
+/* MOBILE FIX */
+
+@media(max-width:768px){
+
+.pdf-container{
+height:75vh;
+}
+
+}/* ============================= */
+/* MODERN BOOK VIEWER */
+/* ============================= */
+
+.viewer{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.92);
+display:none;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+z-index:9999;
+backdrop-filter: blur(6px);
+animation:fadeIn 0.4s ease;
+}
+
+.book-page{
+max-height:85vh;
+max-width:90vw;
+border-radius:12px;
+box-shadow:0 0 35px rgba(255,255,255,0.2);
+transition:transform 0.3s ease;
+}
+
+.book-page:hover{
+transform:scale(1.02);
+}
+
+/* controls */
+
+.controls{
+margin-top:20px;
+display:flex;
+align-items:center;
+gap:20px;
+color:white;
+font-family:'Poppins',sans-serif;
+font-size:1.1em;
+}
+
+.controls button{
+padding:10px 18px;
+border:none;
+border-radius:6px;
+background:#d63384;
+color:white;
+cursor:pointer;
+font-weight:600;
+transition:0.3s;
+}
+
+.controls button:hover{
+background:#ff1493;
+transform:scale(1.05);
+}
+
+.controls button:disabled{
+background:#777;
+cursor:default;
+}
+
+/* page jump */
+
+.page-jump{
+margin-top:15px;
+}
+
+.page-jump input{
+padding:8px;
+border-radius:6px;
+border:none;
+width:140px;
+font-size:1em;
+text-align:center;
+}
+
+.page-jump button{
+padding:8px 14px;
+border:none;
+border-radius:6px;
+background:#d63384;
+color:white;
+cursor:pointer;
+font-weight:600;
+margin-left:6px;
+transition:0.3s;
+}
+
+.page-jump button:hover{
+background:#ff1493;
+}
+
+/* close button */
+
+.close-btn{
+position:absolute;
+top:20px;
+right:30px;
+font-size:32px;
+background:none;
+border:none;
+color:white;
+cursor:pointer;
+transition:0.3s;
+}
+
+.close-btn:hover{
+transform:scale(1.2);
+color:#ff1493;
+}
+
+/* MOBILE OPTIMIZATION */
+
+@media(max-width:768px){
+
+.book-page{
+max-height:70vh;
+}
+
+.controls{
+flex-direction:column;
+gap:10px;
+}
+
+.page-jump input{
+width:110px;
+}
+
+}
+.viewer{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.95);
+z-index:99999;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+}   
+.download-btn{
+margin-top:20px;
+padding:10px 22px;
+background:#ff6b81;
+color:white;
+text-decoration:none;
+border-radius:8px;
+font-family:Poppins;
+font-weight:600;
+display:inline-block;
+transition:0.3s;
+}
+
+.download-btn:hover{
+background:#ff4757;
+}
