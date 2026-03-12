@@ -291,5 +291,22 @@ updateViewer();
 });
 
 };
+function updateViewer(){
+
+bookPage.src = "page" + currentPage + ".jpg";
+
+pageLabel.textContent = "Page " + currentPage + " / " + TOTAL_PAGES;
+
+// preload next page
+if(currentPage < TOTAL_PAGES){
+let img = new Image();
+img.src = "page" + (currentPage + 1) + ".jpg";
+}
+
+}
+bookPage.onload = function(){
+bookPage.style.opacity = "1";
+}
+bookPage.style.opacity = "0";
 
 </script>
