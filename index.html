@@ -259,6 +259,11 @@ const goPage = document.getElementById("goPage");
 const TOTAL_PAGES = 173;
 
 let currentPage = 1;
+// preload first 5 pages
+for (let i = 1; i <= 5; i++) {
+let img = new Image();
+img.src = "page" + i + ".jpg";
+}
 
 function heartRain(){
 
