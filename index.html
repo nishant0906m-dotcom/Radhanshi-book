@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Radhanshi</title>
-
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=5">
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300&display=swap" rel="stylesheet">
 
@@ -32,6 +31,7 @@ z-index:9999;
 max-height:85vh;
 border-radius:10px;
 box-shadow:0 0 25px rgba(255,255,255,0.3);
+transition:opacity 0.3s;
 }
 
 .controls{
@@ -83,13 +83,60 @@ cursor:pointer;
 .book-cover{
 width:260px;
 cursor:pointer;
-transition:0.3s;
+transition:0.4s;
 border-radius:12px;
-box-shadow:0 8px 25px rgba(0,0,0,0.2);
+box-shadow:0 0 25px rgba(255,150,170,0.5);
 }
 
 .book-cover:hover{
-transform:scale(1.05);
+transform:scale(1.08);
+box-shadow:0 0 40px rgba(255,120,150,0.8);
+}
+
+.download-btn{
+display:inline-block;
+margin-top:20px;
+padding:10px 20px;
+background:#ff6b81;
+color:white;
+text-decoration:none;
+border-radius:8px;
+font-family:Poppins;
+}
+
+.hearts{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+}
+
+.hearts::before{
+content:"❤️";
+position:absolute;
+left:50%;
+font-size:20px;
+animation:floatHearts 8s linear infinite;
+}
+
+@keyframes floatHearts{
+
+0%{
+transform:translateY(100vh);
+opacity:0;
+}
+
+50%{
+opacity:1;
+}
+
+100%{
+transform:translateY(-10vh);
+opacity:0;
+}
+
 }
 
 </style>
@@ -100,7 +147,7 @@ transform:scale(1.05);
 
 <header>
 
-<img src="logo.png" alt="Logo" class="logo">
+<img src="logo.png" class="logo">
 
 <h1>Radhanshi</h1>
 
@@ -114,26 +161,21 @@ transform:scale(1.05);
 Welcome to the enchanting tale of Radhanshi, where every word whispers a secret of the heart.
 </p>
 
-<img src="radha.png" alt="Radhanshi" class="intro-image">
+<img src="radha.png" class="intro-image">
 
 </section>
 
 <section class="book">
 
 <div class="text-box">
+
 <h2>The Story</h2>
 
-<div class="book-content">
-<p>Radhanshi</p>
-<p>Not just love, a soul.</p>
-<p>This is not a love story, this is a feeling from the deepest part of my heart.
+<p>
+This is not a love story, this is a feeling from the deepest part of my heart.
 It is every feeling I never knew how to say.
-
-For the girl I call "Radhanshi"
-because she is a part of something divine.
-
 </p>
-</div>
+
 </div>
 
 </section>
@@ -151,15 +193,21 @@ But some become a feeling that quietly stays in the heart forever.
 
 <footer>
 
-<p>Made with LOVE❤️ </p>
+<p>Made with LOVE ❤️</p>
 
 </footer>
 
 <section class="book-cover-section">
 
-<img id="coverImg" src="./page1.jpg" class="book-cover">
+<img id="coverImg" src="page1.jpg" class="book-cover">
 
-<p class="cover-caption">Click the cover to open the book</p>
+<p>Click the cover to open the book</p>
+
+<a href="https://drive.google.com/uc?export=download&id=1xjKm0cMGHqLBRKps-Fll-BAA93pKZY8g" 
+target="_blank" 
+class="download-btn">
+Download Book
+</a>
 
 </section>
 
@@ -167,7 +215,7 @@ But some become a feeling that quietly stays in the heart forever.
 
 <button id="closeViewer" class="close-btn">✕</button>
 
-<img id="bookPage" src="./page1.jpg" class="book-page">
+<img id="bookPage" src="page1.jpg" class="book-page">
 
 <div class="controls">
 
@@ -188,11 +236,13 @@ But some become a feeling that quietly stays in the heart forever.
 </div>
 
 </div>
-<a href="book.pdf" download class="download-btn">Download Book</a>
 
+<div class="hearts"></div>
+
+<div id="finalMessage" class="final-message">
+❤️ This story was always meant for you ❤️
+</div> 
 <script>
-
-
 
 window.onload = function(){
 
@@ -210,103 +260,107 @@ const TOTAL_PAGES = 173;
 
 let currentPage = 1;
 
-function updateViewer(){
+function heartRain(){
 
-bookPage.src = "page" + currentPage + ".jpg";
+for(let i=0;i<30;i++){
 
-pageLabel.textContent = "Page " + currentPage + " / " + TOTAL_PAGES;
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+
+heart.style.left=Math.random()*100+"%";
+heart.style.fontSize=(20+Math.random()*20)+"px";
+heart.style.animationDuration=(3+Math.random()*3)+"s";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},5000);
 
 }
 
-coverImg.onclick = function(){
+}
 
-viewer.style.display = "flex";
+function updateViewer(){
 
-currentPage = 1;
+bookPage.style.opacity="0";
+
+setTimeout(function(){
+
+bookPage.src="page"+currentPage+".jpg";
+
+pageLabel.textContent="Page "+currentPage+" / "+TOTAL_PAGES;
+
+if(currentPage === TOTAL_PAGES){
+document.getElementById("finalMessage").style.display="block";
+heartRain();
+}else{
+document.getElementById("finalMessage").style.display="none";
+}
+
+bookPage.style.opacity="1";
+
+if(currentPage < TOTAL_PAGES){
+let img=new Image();
+img.src="page"+(currentPage+1)+".jpg";
+}
+
+},150);
+
+}
+
+coverImg.onclick=function(){
+
+viewer.style.display="flex";
+
+document.getElementById("finalMessage").style.display="none";
+
+currentPage=1;
 
 updateViewer();
 
 };
 
-closeBtn.onclick = function(){
+closeBtn.onclick=function(){
 
-viewer.style.display = "none";
+viewer.style.display="none";
+
+document.getElementById("finalMessage").style.display="none";
 
 };
 
-prevBtn.onclick = function(){
+prevBtn.onclick=function(){
 
-if(currentPage > 1){
-
+if(currentPage>1){
 currentPage--;
-
 updateViewer();
-
 }
 
 };
 
-nextBtn.onclick = function(){
+nextBtn.onclick=function(){
 
-if(currentPage < TOTAL_PAGES){
-
+if(currentPage<TOTAL_PAGES){
 currentPage++;
-
 updateViewer();
-
 }
 
 };
 
-goPage.onclick = function(){
+goPage.onclick=function(){
 
-let page = parseInt(pageInput.value);
+let page=parseInt(pageInput.value);
 
-if(page >= 1 && page <= TOTAL_PAGES){
-
-currentPage = page;
-
+if(page>=1 && page<=TOTAL_PAGES){
+currentPage=page;
 updateViewer();
-
 }
 
 };
 
-pageInput.addEventListener("keypress", function(e){
-
-if(e.key === "Enter"){
-
-let page = parseInt(pageInput.value);
-
-if(page >= 1 && page <= TOTAL_PAGES){
-
-currentPage = page;
-
-updateViewer();
-
-}
-
-}
-
-});
-
 };
-function updateViewer(){
-
-bookPage.src = "page" + currentPage + ".jpg";
-
-pageLabel.textContent = "Page " + currentPage + " / " + TOTAL_PAGES;
-
-// preload next page
-if(currentPage < TOTAL_PAGES){
-let img = new Image();
-img.src = "page" + (currentPage + 1) + ".jpg";
-}
-
-}
-bookPage.onload = function(){
-bookPage.style.opacity = "1";
-}
-bookPage.style.opacity = "0";
-
 </script>
+
+</body>
+</html>
